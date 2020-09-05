@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import formateCurrency from './util';
 
 const Products = ({ products, addToCard }) => {
