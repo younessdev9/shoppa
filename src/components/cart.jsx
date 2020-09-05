@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Fade from 'react-reveal/Fade';
 import formateCurrency from './util';
 
 const Cart = ({ cartItems, removeFromCart, handleOrder }) => {
@@ -28,27 +29,29 @@ const Cart = ({ cartItems, removeFromCart, handleOrder }) => {
       )}
       <div>
         <div className="cart">
-          <ul className="cart-items">
-            {cartItems.map((item) => (
-              <li key={item._id}>
-                <div>
-                  <img src={item.image} alt={item.title} />
-                </div>
-                <div>
-                  <div>{item.title}</div>
-                  <div className="right">
-                    {formateCurrency(item.price)} X {item.count}{' '}
-                    <button
-                      className="button"
-                      onClick={() => removeFromCart(item)}
-                    >
-                      Remove
-                    </button>
+          <Fade left cascade>
+            <ul className="cart-items">
+              {cartItems.map((item) => (
+                <li key={item._id}>
+                  <div>
+                    <img src={item.image} alt={item.title} />
                   </div>
-                </div>
-              </li>
-            ))}
-          </ul>
+                  <div>
+                    <div>{item.title}</div>
+                    <div className="right">
+                      {formateCurrency(item.price)} X {item.count}{' '}
+                      <button
+                        className="button"
+                        onClick={() => removeFromCart(item)}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </Fade>
         </div>
         {cartItems.length !== 0 && (
           <div>
@@ -69,47 +72,49 @@ const Cart = ({ cartItems, removeFromCart, handleOrder }) => {
               </div>
             </div>
             {ShowCheckout && (
-              <div className="cart">
-                <form onSubmit={creatOrder}>
-                  <ul className="form-container">
-                    <li>
-                      <label htmlFor="email">Email</label>
-                      <input
-                        id="email"
-                        type="email"
-                        required
-                        onChange={(e) => setEmail(e.target.value)}
-                        name="email"
-                      />
-                    </li>
-                    <li>
-                      <label htmlFor="name">Name</label>
-                      <input
-                        type="text"
-                        required
-                        onChange={(e) => setName(e.target.value)}
-                        name="name"
-                        id="name"
-                      />
-                    </li>
-                    <li>
-                      <label htmlFor="address">Adress</label>
-                      <input
-                        type="text"
-                        required
-                        onChange={(e) => setAddress(e.target.value)}
-                        name="address"
-                        id="address"
-                      />
-                    </li>
-                    <li>
-                      <button className="button primary" type="submit">
-                        Checkout
-                      </button>
-                    </li>
-                  </ul>
-                </form>
-              </div>
+              <Fade right cascade>
+                <div className="cart">
+                  <form onSubmit={creatOrder}>
+                    <ul className="form-container">
+                      <li>
+                        <label htmlFor="email">Email</label>
+                        <input
+                          id="email"
+                          type="email"
+                          required
+                          onChange={(e) => setEmail(e.target.value)}
+                          name="email"
+                        />
+                      </li>
+                      <li>
+                        <label htmlFor="name">Name</label>
+                        <input
+                          type="text"
+                          required
+                          onChange={(e) => setName(e.target.value)}
+                          name="name"
+                          id="name"
+                        />
+                      </li>
+                      <li>
+                        <label htmlFor="address">Adress</label>
+                        <input
+                          type="text"
+                          required
+                          onChange={(e) => setAddress(e.target.value)}
+                          name="address"
+                          id="address"
+                        />
+                      </li>
+                      <li>
+                        <button className="button primary" type="submit">
+                          Checkout
+                        </button>
+                      </li>
+                    </ul>
+                  </form>
+                </div>
+              </Fade>
             )}
           </div>
         )}
