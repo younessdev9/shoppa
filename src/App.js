@@ -1,14 +1,15 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import data from './data.json';
 import Products from './components/products';
 import Filter from './components/filter';
 import Cart from './components/cart';
 
 class App extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      products: data.products,
+      products: props.products,
       cartItems: localStorage.getItem('cartItems')
         ? JSON.parse(localStorage.getItem('cartItems'))
         : [],
@@ -95,10 +96,7 @@ class App extends React.Component {
                 filterproducts={this.filterProducts}
                 sortproducts={this.sortProducts}
               />
-              <Products
-                products={this.state.products}
-                addToCard={this.addToCart}
-              />
+              <Products addToCard={this.addToCart} />
             </div>
             <div className="sidebar">
               <Cart
@@ -114,5 +112,7 @@ class App extends React.Component {
     );
   }
 }
-
-export default App;
+const mapStateToProps = (state) => ({
+  products: state.products.products.products,
+});
+export default connect(mapStateToProps)(App);

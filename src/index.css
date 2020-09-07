@@ -224,3 +224,28 @@ input {
   top: 2.5rem;
   z-index: 1000;
 }
+.product-price {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.product-price div,
+.product-price button {
+  text-align: center;
+  flex: 1;
+}
+.product-price div {
+  font-size: 2rem;
+}
+.button {
+  padding: 1rem;
+  border: 0.1rem #c0c0c0 solid;
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+.button:hover {
+  border: 0.1rem #808080 solid;
+}
+.button.primary {
+  background-color: #f0c040;
+}
