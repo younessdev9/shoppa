@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import data from './data.json';
 import Products from './components/products';
 import Filter from './components/filter';
 import Cart from './components/cart';
@@ -9,7 +8,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      products: props.products,
+      products: this.props.products,
       cartItems: localStorage.getItem('cartItems')
         ? JSON.parse(localStorage.getItem('cartItems'))
         : [],
@@ -70,16 +69,17 @@ class App extends React.Component {
   };
   filterProducts = (e) => {
     if (e.target.value === '') {
-      this.setState({ size: e.target.value, products: data.products });
+      this.setState({ size: e.target.value, products: this.props.products });
     } else {
       this.setState({
         size: e.target.value,
-        products: data.products.filter(
+        products: this.props.products.filter(
           (prod) => prod.availableSizes.indexOf(e.target.value) >= 0
         ),
       });
     }
   };
+
   render() {
     return (
       <div className="grid-container">
@@ -90,10 +90,9 @@ class App extends React.Component {
           <div className="content">
             <div className="main">
               <Filter
-                count={this.state.products.length}
+                count={this.props.products.length}
                 size={this.state.size}
                 sort={this.state.sort}
-                filterproducts={this.filterProducts}
                 sortproducts={this.sortProducts}
               />
               <Products addToCard={this.addToCart} />
@@ -113,6 +112,6 @@ class App extends React.Component {
   }
 }
 const mapStateToProps = (state) => ({
-  products: state.products.products.products,
+  products: state.shopData.products,
 });
 export default connect(mapStateToProps)(App);

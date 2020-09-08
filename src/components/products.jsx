@@ -4,6 +4,7 @@ import Modal from 'react-modal';
 import { connect } from 'react-redux';
 import formateCurrency from './util';
 import Zoom from 'react-reveal/Zoom';
+
 const Products = ({ products, addToCard }) => {
   const [product, setProduct] = useState(null);
   const openModal = (product) => {
@@ -79,7 +80,7 @@ const Products = ({ products, addToCard }) => {
     </div>
   );
 };
-const mapStateToProps = (state) => ({
-  products: state.products.products.products,
+const mapStateToProps = ({ shopData }) => ({
+  products: shopData.products,
 });
 export default connect(mapStateToProps)(Products);

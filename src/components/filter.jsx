@@ -1,12 +1,25 @@
 import React from 'react';
-
-const Filter = ({ count, size, sort, sortproducts, filterproducts }) => {
+import { connect } from 'react-redux';
+import {
+  filterProductsAction,
+  sortproductsAction,
+} from '../redux/shop-data/shop-actions';
+const Filter = ({
+  shopData,
+  count,
+  setfilteredProducts,
+  setsortedproducts,
+}) => {
+  console.log('fucccccccckk', shopData.products);
   return (
     <div className="filter">
       <div className="filter-result">{count} Products</div>
       <div className="filter-sort">
         order{' '}
-        <select value={sort} onChange={sortproducts}>
+        <select
+          value={shopData.sort}
+          onChange={(e) => setsortedproducts(e, shopData.products)}
+        >
           <option>Latest</option>
           <option value="lowest">Lowest</option>
           <option value="highest">highest</option>
@@ -14,7 +27,10 @@ const Filter = ({ count, size, sort, sortproducts, filterproducts }) => {
       </div>
       <div className="filter-size">
         Filter{' '}
-        <select value={size} onChange={filterproducts}>
+        <select
+          value={shopData.size}
+          onChange={(e) => setfilteredProducts(e, shopData.products)}
+        >
           <option value="">All</option>
           <option value="XS">XS</option>
           <option value="S">S</option>
@@ -27,5 +43,11 @@ const Filter = ({ count, size, sort, sortproducts, filterproducts }) => {
     </div>
   );
 };
-
-export default Filter;
+const mapStateToProps = ({ shopData }) => ({
+  shopData: shopData,
+});
+const mapDispatchToProps = (dispatch) => ({
+  setfilteredProducts: (e) => dispatch(filterProductsAction(e)),
+  setsortedproducts: (e, data) => dispatch(sortproductsAction(e, data)),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Filter);
