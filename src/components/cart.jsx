@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import Fade from 'react-reveal/Fade';
+import { connect } from 'react-redux';
 import formateCurrency from './util';
+import { removeFromCartAction } from '../redux/cart/cart.Actions';
+import { selectCartItems } from '../redux/cart/cart.selectors';
 
 const Cart = ({ cartItems, removeFromCart, handleOrder }) => {
   const [ShowCheckout, setShowCheckout] = useState(false);
@@ -122,5 +125,10 @@ const Cart = ({ cartItems, removeFromCart, handleOrder }) => {
     </div>
   );
 };
-
-export default Cart;
+const mapStateToProps = (state) => ({
+  cartItems: selectCartItems(state),
+});
+const mapDispatchToProps = (dispatch) => ({
+  removeFromCart: (product) => dispatch(removeFromCartAction(product)),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);

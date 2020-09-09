@@ -10,7 +10,6 @@ const Filter = ({
   setfilteredProducts,
   setsortedproducts,
 }) => {
-  console.log('fucccccccckk', shopData.products);
   return (
     <div className="filter">
       <div className="filter-result">{count} Products</div>

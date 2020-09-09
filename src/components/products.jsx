@@ -4,8 +4,9 @@ import Modal from 'react-modal';
 import { connect } from 'react-redux';
 import formateCurrency from './util';
 import Zoom from 'react-reveal/Zoom';
+import { addToCartAction } from '../redux/cart/cart.Actions';
 
-const Products = ({ products, addToCard }) => {
+const Products = ({ products, addToCard, cartItems }) => {
   const [product, setProduct] = useState(null);
   const openModal = (product) => {
     setProduct(product);
@@ -80,7 +81,12 @@ const Products = ({ products, addToCard }) => {
     </div>
   );
 };
-const mapStateToProps = ({ shopData }) => ({
+const mapStateToProps = ({ shopData, cart }) => ({
   products: shopData.products,
+  cartItems: cart.cartItems,
 });
-export default connect(mapStateToProps)(Products);
+const mapDispatchToProps = (dispatch) => ({
+  addToCard: (product, cartItems) =>
+    dispatch(addToCartAction(product, cartItems)),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Products);
