@@ -1,23 +1,25 @@
 import React, { useState } from 'react';
 import Fade from 'react-reveal/Fade';
+import { connect } from 'react-redux';
+import { useForm } from 'react-hook-form';
+import * as yup from 'yup';
+
 import formateCurrency from './util';
+import { removeFromCartAction } from '../redux/cart/cart.Actions';
+import { selectCartItems } from '../redux/cart/cart.selectors';
 
-const Cart = ({ cartItems, removeFromCart, handleOrder }) => {
+const Cart = ({ cartItems, removeFromCart }) => {
+  const [data, setData] = useState(null);
   const [ShowCheckout, setShowCheckout] = useState(false);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [address, setAddress] = useState('');
+  const { register, handleSubmit, errors, reset } = useForm({
+    mode: 'onBlur',
+    validationSchema: yup.object({
+      email: yup.string().required('Email is required'),
+      name: yup.string().required('Name is required'),
+      address: yup.string().required('Address is required'),
+    }),
+  });
 
-  const creatOrder = (e) => {
-    e.preventDefault();
-    const order = {
-      name: name,
-      email: email,
-      address: address,
-      cartItems: cartItems,
-    };
-    handleOrder(order);
-  };
   return (
     <div>
       {cartItems.length === 0 ? (
@@ -41,7 +43,7 @@ const Cart = ({ cartItems, removeFromCart, handleOrder }) => {
                     <div className="right">
                       {formateCurrency(item.price)} X {item.count}{' '}
                       <button
-                        className="button"
+                        className="remove-button"
                         onClick={() => removeFromCart(item)}
                       >
                         Remove
@@ -64,7 +66,7 @@ const Cart = ({ cartItems, removeFromCart, handleOrder }) => {
                   )}
                 </div>
                 <button
-                  className="button primary"
+                  className="proced-btn"
                   onClick={() => setShowCheckout(!ShowCheckout)}
                 >
                   Proceed
@@ -74,43 +76,67 @@ const Cart = ({ cartItems, removeFromCart, handleOrder }) => {
             {ShowCheckout && (
               <Fade right cascade>
                 <div className="cart">
-                  <form onSubmit={creatOrder}>
+                  <form
+                    onSubmit={handleSubmit((data) => {
+                      setData(data);
+                      reset('');
+                    })}
+                  >
                     <ul className="form-container">
                       <li>
                         <label htmlFor="email">Email</label>
                         <input
                           id="email"
                           type="email"
-                          required
-                          onChange={(e) => setEmail(e.target.value)}
+                          ref={register({ required: 'Email is Required' })}
                           name="email"
                         />
+                        {errors.email && (
+                          <span className="input-error-msg">
+                            {errors.email.message}
+                          </span>
+                        )}
                       </li>
                       <li>
                         <label htmlFor="name">Name</label>
                         <input
                           type="text"
-                          required
-                          onChange={(e) => setName(e.target.value)}
+                          ref={register({ required: 'Name is Required' })}
                           name="name"
                           id="name"
                         />
+                        {errors.name && (
+                          <span className="input-error-msg">
+                            {errors.name.message}
+                          </span>
+                        )}
                       </li>
                       <li>
                         <label htmlFor="address">Adress</label>
                         <input
                           type="text"
-                          required
-                          onChange={(e) => setAddress(e.target.value)}
+                          ref={register({ required: 'Adress is required' })}
                           name="address"
                           id="address"
                         />
+                        {errors.address && (
+                          <span className="input-error-msg">
+                            {errors.address.message}
+                          </span>
+                        )}
                       </li>
                       <li>
-                        <button className="button primary" type="submit">
+                        <button className="checkout-btn" type="submit">
                           Checkout
                         </button>
                       </li>
+                      {data && (
+                        <div>
+                          thank you {data.name} for perchasing we will chip the
+                          products as soon as possible to the address{' '}
+                          {data.address}
+                        </div>
+                      )}
                     </ul>
                   </form>
                 </div>
@@ -122,5 +148,10 @@ const Cart = ({ cartItems, removeFromCart, handleOrder }) => {
     </div>
   );
 };
-
-export default Cart;
+const mapStateToProps = (state) => ({
+  cartItems: selectCartItems(state),
+});
+const mapDispatchToProps = (dispatch) => ({
+  removeFromCart: (product) => dispatch(removeFromCartAction(product)),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);

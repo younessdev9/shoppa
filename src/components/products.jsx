@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import Fade from 'react-reveal/Fade';
 import Modal from 'react-modal';
+import { connect } from 'react-redux';
 import formateCurrency from './util';
 import Zoom from 'react-reveal/Zoom';
-const Products = ({ products, addToCard }) => {
+import { addToCartAction } from '../redux/cart/cart.Actions';
+
+const Products = ({ products, addToCard, cartItems }) => {
   const [product, setProduct] = useState(null);
   const openModal = (product) => {
     setProduct(product);
@@ -26,6 +29,7 @@ const Products = ({ products, addToCard }) => {
                   <div>{formateCurrency(product.price)}</div>
                   <button
                     className="button primary"
+                    id="add-to-cart"
                     onClick={() => addToCard(product)}
                   >
                     Add To Cart
@@ -78,4 +82,12 @@ const Products = ({ products, addToCard }) => {
     </div>
   );
 };
-export default Products;
+const mapStateToProps = ({ shopData, cart }) => ({
+  products: shopData.products,
+  cartItems: cart.cartItems,
+});
+const mapDispatchToProps = (dispatch) => ({
+  addToCard: (product, cartItems) =>
+    dispatch(addToCartAction(product, cartItems)),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Products);
