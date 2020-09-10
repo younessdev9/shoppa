@@ -29,6 +29,7 @@ const Products = ({ products, addToCard, cartItems }) => {
                   <div>{formateCurrency(product.price)}</div>
                   <button
                     className="button primary"
+                    id="add-to-cart"
                     onClick={() => addToCard(product)}
                   >
                     Add To Cart

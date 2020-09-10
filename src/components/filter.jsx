@@ -12,12 +12,13 @@ const Filter = ({
 }) => {
   return (
     <div className="filter">
-      <div className="filter-result">{count} Products</div>
+      <span className="shoppa">SHOPPA.</span>
       <div className="filter-sort">
-        order{' '}
+        Order{' '}
         <select
           value={shopData.sort}
           onChange={(e) => setsortedproducts(e, shopData.products)}
+          className="selector"
         >
           <option>Latest</option>
           <option value="lowest">Lowest</option>
@@ -27,6 +28,7 @@ const Filter = ({
       <div className="filter-size">
         Filter{' '}
         <select
+          className="selector"
           value={shopData.size}
           onChange={(e) => setfilteredProducts(e, shopData.products)}
         >

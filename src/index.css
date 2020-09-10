@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 html {
   font-size: 62.5%;
   box-sizing: border-box;
@@ -8,6 +7,7 @@ body,
   height: 100vh;
   margin: 0;
   padding: 0;
+  --primary-color: #48bfe3;
 }
 body,
 input,
@@ -15,7 +15,7 @@ select,
 button,
 textarea {
   font-size: 1.7rem;
-  font-family: Montserrat, Helvetica, Arial, sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 code {
@@ -40,7 +40,7 @@ a:hover {
 }
 header {
   grid-area: header;
-  background-color: #203040;
+  background-color: #376797;
   display: flex;
   align-items: center;
 }
@@ -71,6 +71,18 @@ footer {
 .sidebar {
   flex: 1 20rem;
 }
+/* *****  filter styles***** */
+
+.selector {
+  background-color: #eeeeee;
+  padding: 0.4rem 1.2rem;
+  color: #333333;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  outline: none;
+  font-size: 1.7rem;
+  border: 1px solid #dddddd;
+}
 
 /* products */
 
@@ -80,6 +92,7 @@ footer {
   justify-content: center;
   align-items: center;
   list-style: none;
+  margin-bottom: 5rem;
 }
 .products li {
   flex: 0 1 29rem;
@@ -111,26 +124,63 @@ footer {
 .product-price div {
   font-size: 2rem;
 }
-.button {
+.proced-btn {
   padding: 1rem;
-  border: 0.1rem #c0c0c0 solid;
-  background-color: #f0f0f0;
   cursor: pointer;
+  border: none;
+}
+.proced-btn:hover {
+  background-color: #21bbe9f5;
+}
+.proced-btn:focus {
+  outline: none;
 }
 .button:hover {
   border: 0.1rem #808080 solid;
 }
 .button.primary {
-  background-color: #ffc000;
+  background-color: #65c3dff5;
+  color: #ffffff;
+}
+#add-to-cart,
+.proced-btn {
+  background-color: #65c3dff5;
+  color: #ffffff;
+  border-radius: 7px;
+}
+#add-to-cart:hover {
+  background-color: #21bbe9f5;
+}
+#add-to-cart:focus {
+  outline: none;
+}
+.checkout-btn {
+  background-color: #47a4d0;
+  padding: 1rem;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+}
+.checkout-btn:hover {
+  background-color: #28a8e5;
+}
+.checkout-btn:focus {
+  outline: none;
 }
 .filter {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 1rem;
   margin: 1rem;
   border-bottom: 0.1rem #c0c0c0 solid;
 }
-
+.shoppa {
+  font-weight: 600;
+  flex: 1;
+}
 .filter div {
   flex: 1;
 }
@@ -162,7 +212,9 @@ footer {
   flex: 1;
 }
 .right {
-  text-align: right;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .total {
   display: flex;
@@ -177,7 +229,24 @@ footer {
 .total > button {
   flex: 1;
 }
+.remove-button {
+  background-color: #f92f2f94;
+  color: #ffffff;
+  border: none;
+  border-radius: 3px;
+}
+.remove-button:hover {
+  background-color: #c8242494;
+}
+.button {
+  background-color: transparent;
+}
 
+.input-error-msg {
+  margin-top: 1rem;
+  color: red;
+  font-weight: 600;
+}
 /*  CHECKOUT FORM*****/
 form {
   width: 90%;
