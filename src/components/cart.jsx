@@ -26,12 +26,12 @@ const Cart = ({ cartItems, removeFromCart }) => {
         <div className="cart cart-header">Cart is empty</div>
       ) : (
         <div className="cart cart-header">
-          you have {cartItems.length} in the Cart{' '}
+          You have {cartItems.length} items in you're shopping Cart{' '}
         </div>
       )}
       <div>
         <div className="cart">
-          <Fade left cascade>
+          <Fade right cascade>
             <ul className="cart-items">
               {cartItems.map((item) => (
                 <li key={item._id}>
@@ -131,11 +131,11 @@ const Cart = ({ cartItems, removeFromCart }) => {
                         </button>
                       </li>
                       {data && (
-                        <div>
+                        <p className="thanks-message">
                           thank you {data.name} for perchasing we will chip the
                           products as soon as possible to the address{' '}
                           {data.address}
-                        </div>
+                        </p>
                       )}
                     </ul>
                   </form>
