@@ -6,13 +6,23 @@ import formateCurrency from './util';
 import Zoom from 'react-reveal/Zoom';
 import { addToCartAction } from '../redux/cart/cart.Actions';
 
-const Products = ({ products, addToCard, cartItems }) => {
+const Products = ({ products, addToCard }) => {
   const [product, setProduct] = useState(null);
   const openModal = (product) => {
     setProduct(product);
   };
   const closeModal = () => {
     setProduct(null);
+  };
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+    },
   };
   return (
     <div>
@@ -28,8 +38,7 @@ const Products = ({ products, addToCard, cartItems }) => {
                 <div className="product-price">
                   <div>{formateCurrency(product.price)}</div>
                   <button
-                    className="button primary"
-                    id="add-to-cart"
+                    className="add-to-cart"
                     onClick={() => addToCard(product)}
                   >
                     Add To Cart
@@ -41,7 +50,7 @@ const Products = ({ products, addToCard, cartItems }) => {
         </ul>
       </Fade>
       {product && (
-        <Modal isOpen={true} onRequestClose={closeModal}>
+        <Modal isOpen={true} onRequestClose={closeModal} style={customStyles}>
           <Zoom>
             <button onClick={closeModal} className="close-modal">
               X
@@ -50,29 +59,29 @@ const Products = ({ products, addToCard, cartItems }) => {
               <img src={product.image} alt={product.title} />
               <div className="product-details-description">
                 <p className="modal__product-title">{product.title}</p>
-                <p>{product.description}</p>
+                <p className="modal-product-description">
+                  {product.description}
+                </p>
                 <p>
-                  Aviable Sizes
+                  Available sizes :{' '}
                   {product.availableSizes.map((el) => (
                     <span>
                       {' '}
-                      <button className="button">{el}</button>{' '}
+                      <button className="available-sizes">{el}</button>{' '}
                     </span>
                   ))}
                 </p>
                 <div className="product-price">
-                  <div>
-                    {formateCurrency(product.price)}
-                    <button
-                      className="button primary"
-                      onClick={() => {
-                        addToCard(product);
-                        closeModal();
-                      }}
-                    >
-                      Add to Cart
-                    </button>
-                  </div>
+                  <span>{formateCurrency(product.price)}</span>
+                  <button
+                    className="add-to-cart"
+                    onClick={() => {
+                      addToCard(product);
+                      closeModal();
+                    }}
+                  >
+                    Add to Cart
+                  </button>
                 </div>
               </div>
             </div>
