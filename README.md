@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # [Shoppa](https://shoppa-site.netlify.app/)
 
 **Shoppa** is a shopping cart built using **Reactjs** with **Redux** and much more...
@@ -5,6 +6,13 @@
 ### why I've used Redux
 
 **Shoppa** is a shopping cart that has a lot of state changes at many components which means using normal class state and passing props down will cause what's called props drilling. and the way to avoid this is to use something that passes the state to the component directly that needs that piece of state . Redux does this in a very clean and efficient way as the app gets bigger the scaling gets easy.
+=======
+
+# [Shoppa](https://shoppa-site.netlify.app/)
+
+**Shoppa** is a shopping cart built using **React** js with **Redux** and much more
+I've chosen to use Redux as the state management for this app because this app has a lot of state changes in many components so to avoid what's called props drilling.
+>>>>>>> 054435e343d94617a3ca70889f0843075f800ed2
 
 #### Dependencies
 
@@ -23,4 +31,8 @@
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
+<<<<<<< HEAD
     "yup": "^0.29.3"
+=======
+    "yup": "^0.29.3"
+>>>>>>> 054435e343d94617a3ca70889f0843075f800ed2
