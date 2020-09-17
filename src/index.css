@@ -96,6 +96,11 @@ footer {
   list-style: none;
   margin-bottom: 5rem;
 }
+@media only screen and (max-width: 500px) {
+  .products {
+    padding-left: 0;
+  }
+}
 .products li {
   flex: 0 1 29rem;
   height: 47rem;
