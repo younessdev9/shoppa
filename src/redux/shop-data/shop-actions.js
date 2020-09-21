@@ -1,6 +1,6 @@
 import { FILTER_PRODUCT_BY_SIZE, ORDER_PRODUCTS_BY_PRICE } from './shop.types';
 import data from './data.json';
-export const filterProductsAction = (e, prod) => {
+export const filterProductsAction = (e) => {
   return {
     type: FILTER_PRODUCT_BY_SIZE,
     payload: {
